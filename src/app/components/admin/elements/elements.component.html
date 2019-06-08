@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1>Lista de elementos</h1>
+            <hr/>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-block btn-success" routerLink="/element/nuevo">
+            <i class="fa fa-plus"></i>
+            Nuevo
+          </button>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="card-columns">
+            <div class="card" *ngFor="let item of items | async">
+
+                <!-- Card image -->
+                <img class="card-img-top" [src]="item.url" alt="Card image cap">
+
+                <!-- Card content -->
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <h4 class="card-title"><a>{{item.nombre}}</a></h4>
+                    <!-- Text -->
+
+                    <!-- Button -->
+                    <a href="#" class="btn btn-primary">Button</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

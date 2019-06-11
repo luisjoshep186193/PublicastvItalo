@@ -26,19 +26,4 @@ export class ElementComponent implements OnInit {
   cargarImagenes() {
     this.elementService.cargarImagenesFirebase(this.archivos);
   }
-  guardar(form: NgForm) {
-    if (form.invalid) {
-      console.log('formulario invalido');
-      return;
-    }
-    if (this.element.id) {
-      this.elementService.actualizarElement(this.element).subscribe(resp =>{
-        console.log(resp);
-        });
-    } else {
-      this.elementService.crearElement(this.element).subscribe(resp =>{
-        console.log(resp);
-        });
-    }
-    }
 }

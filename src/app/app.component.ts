@@ -12,5 +12,5 @@ export class AppComponent {
   frase: any = {
     mensaje: 'gran poder',
     autor: 'gran responsabilidad'
-  }
+  };
 }

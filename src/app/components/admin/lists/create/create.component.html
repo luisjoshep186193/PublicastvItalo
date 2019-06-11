@@ -1,0 +1,60 @@
+<div class="container main-container fadeInDown slow">
+    <button class="btn btn-success btn-md" [routerLink]="['/lists']">Back to PlayLists</button>
+    <hr>
+    <h4>Crear <small>lista</small></h4>
+    <hr>
+    <form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
+
+        <div>
+
+            <div class="form-group row" [ngClass]="{'has-danger': (title.errors?.required || title.errors?.minlength) && title.touched} ">
+                <label class="col-2 col-form-label">Titulo</label>
+                <div class="col-8">
+
+                    <input class="form-control" type="text" placeholder="Title" name="title" [(ngModel)]="element.title" minlength="5" required #title="ngModel">
+                </div>
+                <div *ngIf="title.errors?.required && title.touched" class="warning col-8 offset-2">
+                    <p class="text-danger">Campo requerido</p>
+                </div>
+                <div *ngIf="title.errors?.minlength && title.touched" class="warning col-8 offset-2">
+                    <p class="text-danger">Longitud minima {{title.errors?.minlength.requiredLength}} caracteres.</p>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Duración</label>
+                <div class="col-3">
+
+                    <input class="form-control" type="number" placeholder="Segundos" [(ngModel)]="element.duration" name="duration" #duration="ngModel" min="0" pattern="^\d+$" required>
+
+
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control col-8" name="type" [(ngModel)]="element.type" required #type="ngModel">
+                        <option value="">Selecciona tipo</option>
+                         <option *ngFor = "let type of types"
+                         [value] = "type.text">{{type.value}} </option>
+                    </select>
+                </div>
+                <div *ngIf="duration.errors?.required && duration.touched" class="warning col-8 offset-2">
+                    <p class="text-danger">Numero requerido</p>
+                </div>
+                <div *ngIf="duration.errors?.pattern && duration.touched" class="warning col-8 offset-2">
+                    <p class="text-danger">Debe ser positivo</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-group row">
+
+            <div class="col-4 offset-3">
+                <!--[disabled] = "!forma.valid" -->
+                <button type="submit" [disabled]="!forma.valid" class="btn btn-primary btn-block">Guardar</button>
+            </div>
+        </div>
+
+    </form>
+</div>

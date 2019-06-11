@@ -1,4 +1,4 @@
-export class ElementModel{
+export class ElementModel {
 
     id: string;
     name: string;
@@ -9,7 +9,7 @@ export class ElementModel{
 
 
 
-    constructor(){
+    constructor() {
          this.status = true;
          this.duration = 5;
          this.dateCreated = new Date();

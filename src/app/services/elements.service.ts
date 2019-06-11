@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { FileModel } from '../models/file.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,16 @@ export class ElementsService {
 
   private url = 'https://publicastv-a67df.firebaseio.com/';
   private CARPETA_FILES = 'file';
-
+  private storageRef = firebase.storage().ref();
   constructor(private http: HttpClient,
-              private db: AngularFirestore) {
+              private db: AngularFirestore,
+              private _router: Router) {
 
   }
 
   cargarImagenesFirebase( imagenes: FileModel[]) {
 
-    const storageRef = firebase.storage().ref();
+
 
     for (const item of imagenes) {
 
@@ -31,7 +33,7 @@ export class ElementsService {
       }
 
       const uploadTask: firebase.storage.UploadTask =
-                     storageRef.child(`${ this.CARPETA_FILES } /${ item.nombreArchivo}`)
+                     this.storageRef.child(`${ this.CARPETA_FILES } /${ item.nombreArchivo}`)
                      .put( item.archivo);
 
                      uploadTask.on ( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -44,9 +46,10 @@ export class ElementsService {
                           item.url =  downloadUrl ;
                           item.estaSubiendo = false;
                           this.guardarFile ({
-                            nombre: item.nombreArchivo,
-                            url: item.url
-                          });
+                            name: item.nombreArchivo,
+                            url: item.url,
+                            duration: item.duration
+                          }, imagenes);
 
                           });
                       });
@@ -54,29 +57,27 @@ export class ElementsService {
     }
   }
 
-private guardarFile(file: {nombre: string, url: string}) {
-
+private guardarFile(file: {name: string, url: string, duration: number}, imagenes: FileModel[]) {
+  let lastFile = true;
   this.db.collection(`/${this.CARPETA_FILES}`).add(file);
+  for (const item of imagenes) {
+    if ( item.progreso !== 100 ) {
+      lastFile = false;
+    }
+  }
+  if (lastFile) {
+    this._router.navigate(['./elements']);
+  }
+  // this._router.navigate(['./elements']);
 }
 
-  crearElement(element: ElementModel) {
-    return this.http.post(`${this.url}/elements.json`, element)
-    .pipe(
-      map((resp: any) => {
-        element.id = resp.name;
-        return element;
-      })
-    );
-  }
-  actualizarElement(element: ElementModel) {
-    const elementTemp = {
-      ...element
-    };
-
-    delete elementTemp.id;
-
-    return this.http.put(`${ this.url }/elements/${element.id}.json`, elementTemp);
-
-
+deleteFile(collectionName: string, fileName: string) {
+  this.storageRef.child(`${ collectionName } /${ fileName}`).delete().then(function() {
+   console.log('File Successfully deleted');
+    // File deleted successfully
+  }).catch(function(error) {
+    console.log('File UNSuccessfully deleted');
+    // Uh-oh, an error occurred!
+  });
 }
 }

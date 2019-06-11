@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1>PlayLists</h1>
+            <hr/>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-block btn-success" (click)="crearLista()">
+            <i class="fa fa-plus"></i>
+            Nuevo
+          </button>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="card-columns">
+            <div class="card" *ngFor="let item of items | async">
+
+
+
+                <!-- Card content -->
+                <div class="card-body">
+                    <h4 class="card-title">Id: <a>{{item.id}}</a></h4>
+                    <!-- Title -->
+                    <h4 class="card-title">Nombre: <a>{{item.title}}</a></h4>
+                    <!-- Text -->
+                    <h5 class="card-title">Duración: <a>{{item.duration}} <small> {{item.type}}</small></a></h5>
+
+                    <!-- Button -->
+                    <div class="row">
+                        <button (click)="details(item.id)" class="btn col-md-6 btn-block btn-primary">Elements</button>
+                        <button (click)="delete(item.id)" class="btn col-md-6 btn-block btn-danger">Delete</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

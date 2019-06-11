@@ -13,7 +13,7 @@ import { GroupsComponent } from './components/admin/groups/groups.component';
 import { HomeComponent } from './components/shared/home/home.component';
 
 import { ElementComponent } from './components/admin/elements/element/element.component';
-
+import { FirestoreService } from './services/firestore.service';
 // firebase
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
@@ -21,6 +21,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
+import { ListsComponent } from './components/admin/lists/lists.component';
+import { CreateComponent } from './components/admin/lists/create/create.component';
+import { DetailComponent } from './components/admin/lists/detail/detail.component';
+import { ElementCardComponent } from './components/shared/element-card/element-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     GroupsComponent,
     HomeComponent,
     ElementComponent,
-    NgDropFilesDirective
+    NgDropFilesDirective,
+    ListsComponent,
+    CreateComponent,
+    DetailComponent,
+    ElementCardComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,9 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     AngularFirestoreModule,
     AngularFireStorageModule
   ],
-  providers: [],
+  providers: [
+    FirestoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+<div class="card">
+
+    <!-- Card image -->
+    <img class="card-img-top" [src]="item.url" alt="Card image cap">
+
+    <!-- Card content -->
+    <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title"><a>Id: {{item.id}}</a></h4>
+        <h5 class="card-title"><a>Duración: {{item.duration}}</a></h5>
+        <h6 class="card-title"><a>Nombre: {{item.name}}</a></h6>
+        <!-- Text -->
+
+        <!-- Button -->
+        <a (click)="delete()" class="btn btn-primary">Delete</a>
+
+    </div>
+
+</div>

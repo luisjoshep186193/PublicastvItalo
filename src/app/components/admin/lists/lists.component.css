@@ -1,0 +1,17 @@
+.modal-lg {
+    width: 700px;
+    margin-top: -300px !important;
+    margin-left: -350px !important;
+}
+
+.modal-lg .modal-body {
+    max-height: 525px;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 990px;
+        height: 990px;
+        /* control height here */
+    }
+}

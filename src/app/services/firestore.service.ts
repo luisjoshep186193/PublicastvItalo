@@ -43,7 +43,7 @@ import { ElementId } from '../interfaces/element.interface';
   }
 
   public getStringArray (elementType: string) {
-    var retrievedObject = localStorage.getItem(elementType);
+    let retrievedObject = localStorage.getItem(elementType);
     retrievedObject = retrievedObject.substring(0, retrievedObject.length - 3) + '"';
     const cadena = JSON.parse(retrievedObject);
     return cadena.split('.,');
@@ -56,12 +56,6 @@ import { ElementId } from '../interfaces/element.interface';
 
   getLists(collectionName: string) {
     this.elementsId = [];
-   /* var retrievedObject = localStorage.getItem(this.CARPETA_FILES);
-    console.log('retrieved object: ', retrievedObject);
-    retrievedObject = retrievedObject.substring(0, retrievedObject.length - 3) + '"';
-    const cadena = JSON.parse(retrievedObject);
-    const splitted = cadena.split('.,');
-    console.log('splitted', splitted);*/
     const splitted = this.getStringArray(collectionName);
     splitted.forEach(element => {
        const nuevoElemtoID: ElementId = JSON.parse(element);

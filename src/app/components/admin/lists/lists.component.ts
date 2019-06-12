@@ -24,8 +24,8 @@ export class ListsComponent implements OnInit {
   items: Observable<ElementId[]>;
 
 
-private CARPETA_FILES = 'lists';
-private elementos: ElementId[] = [];
+public CARPETA_FILES = 'lists';
+public currentPlayList: ElementId;
 public elementsId: ElementId [] = [];
 private elementsString = '';
   constructor(private _activatedRoute: ActivatedRoute,
@@ -34,68 +34,69 @@ private elementsString = '';
     private afs: AngularFirestore) {
 
       this.itemsCollection = afs.collection<any>(this.CARPETA_FILES);
-    /*this.items = this.itemsCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        this.elementsId.push({ id, ...data });
-        this.elementsString += JSON.stringify({ id, ...data }) + '.,';
-        localStorage.setItem(this.CARPETA_FILES, JSON.stringify(this.elementsString));
-        return { id, ...data };
-      }))
-      );*/
       this.items = _firestoreService.getCollection(this.CARPETA_FILES);
-      // this.getLists();
-
 }
 
   ngOnInit() {
   }
 
-  guardar(forma: NgForm) {
+   getItem(idx: string) {
 
-    console.log('forma', forma);
-    console.log('forma value', forma.value);
-   }
-   getItem(idx: number) {
-
-    return this.elementsId.find(element => element.id === idx.toString());
+    return this.elementsId.find(element => element.id === idx);
 
    }
-   details(idx: number) {
+   details(item: ElementId) {
+     // console.log('click details button');
     this.elementsId = this._firestoreService.getLists(this.CARPETA_FILES);
-    localStorage.setItem('currentList', JSON.stringify(this.getItem(idx)));
-    this._router.navigate(['/lists/detail', idx]);
+    localStorage.setItem('currentList', JSON.stringify(this.getItem(item.id)));
+    this._router.navigate(['/lists/detail', item.id]);
    }
-
-   delete(idx: number) {
+   setCurrentItem(item: ElementId) {
+     this.currentPlayList = item;
+     // console.log('CURRENTELEMENT: ', item);
+   }
+   delete(item: ElementId) {
     // this.getLists();
-     console.log('id a eliminar: ', idx);
-     this.itemsCollection.doc(idx.toString()).delete().then(function() {
+     // console.log('id a eliminar: ', item.id);
+     this.itemsCollection.doc(item.id.toString()).delete().then(function() {
        console.log('Successfully deleted');
      }).catch(function(error) {
       console.error('Error removing document: ', error);
   });
 
    }
-
+   insertElementToList(item: ElementId) {
+     if ( this.currentPlayList ) {
+        // this.currentPlayList.elements.push(item);
+        if (this.currentPlayList.elements  === undefined) {
+          this.currentPlayList.elements = [];
+        }
+        this.currentPlayList.elements.push(item);
+        this.itemsCollection.doc(this.currentPlayList.id).set(
+          { elements: this.currentPlayList.elements },
+          { merge: true }
+        );
+     }
+      // console.log('insertElementToList list.component : ', item);
+   }
    crearLista () {
      this._router.navigate(['/lists/create']);
    }
+   removeItem (item: ElementId) {
+    // console.log('new playlistelemnt: ', item);
+    this.itemsCollection.doc(item.id).set(
+      { elements: item.elements },
+      { merge: true }
+    );
+   }
    getLists() {
     this.elementsId = [];
-   /* var retrievedObject = localStorage.getItem(this.CARPETA_FILES);
-    console.log('retrieved object: ', retrievedObject);
-    retrievedObject = retrievedObject.substring(0, retrievedObject.length - 3) + '"';
-    const cadena = JSON.parse(retrievedObject);
-    const splitted = cadena.split('.,');
-    console.log('splitted', splitted);*/
     const splitted = this._firestoreService.getStringArray(this.CARPETA_FILES);
     splitted.forEach(element => {
        const nuevoElemtoID: ElementId = JSON.parse(element);
        if (!this.elementsId.find(e => e.id === nuevoElemtoID.id)) {
         this.elementsId.push(nuevoElemtoID);
-        console.log('added: ', nuevoElemtoID.id);
+        // console.log('added: ', nuevoElemtoID.id);
        }
     });
     // return JSON.parse(retrievedObject);

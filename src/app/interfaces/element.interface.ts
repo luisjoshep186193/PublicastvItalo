@@ -7,6 +7,7 @@ export interface Elemento {
     description?: string;
     type?: string;
     url?: string;
+    elements?: ElementId[];
 }
 
 export interface ElementId extends Elemento { id: string; }

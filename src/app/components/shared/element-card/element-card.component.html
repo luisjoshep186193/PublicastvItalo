@@ -1,20 +1,50 @@
 <div class="card">
 
     <!-- Card image -->
-    <img class="card-img-top" [src]="item.url" alt="Card image cap">
+    <img *ngIf="item.url" class="img-fluid img-responsive" [src]="item.url" alt="Card image cap">
 
     <!-- Card content -->
     <div class="card-body">
 
         <!-- Title -->
-        <h4 class="card-title"><a>Id: {{item.id}}</a></h4>
-        <h5 class="card-title"><a>Duración: {{item.duration}}</a></h5>
-        <h6 class="card-title"><a>Nombre: {{item.name}}</a></h6>
+        <h4 *ngIf="item.id" class="card-title"><a>Id: {{item.id}}</a></h4>
+        <h5 *ngIf="item.duration" class="card-title"><a>Duración: {{item.duration}}</a></h5>
+        <h6 *ngIf="item.name" class="card-title"><a>Nombre: {{item.name}}</a></h6>
+        <h6 *ngIf="item.title" class="card-title">Nombre: <a>{{item.title}}</a></h6>
         <!-- Text -->
+        <div *ngIf="item.elements && item.elements.length > 0" style="background-color: aqua">
+            <h4>Elements:</h4>
+            <div *ngFor="let element of item.elements">
 
+                <h5>{{element.name}}<small> - {{element.duration}} seg</small><button (click)="remove(element)">X</button></h5>
+            </div>
+        </div>
         <!-- Button -->
-        <a (click)="delete()" class="btn btn-primary">Delete</a>
 
+        <div class="row">
+            <button *ngIf="!item.name && callerLists()" (click)="detail()" class="btn col-md-6 btn-block btn-primary">Editar</button>
+            <button (click)="delete()" *ngIf="!callerLists()" class="btn col-md-6 btn-block btn-danger">Eliminar</button>
+            <button (click)="add()" *ngIf="callerLists()" class="btn col-md-6 btn-block btn-danger">Add</button>
+            <button (click)="sendItemId()" *ngIf="!item.name && !callerLists()" type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
+        </div>
     </div>
+    <!--<div class="card" >
+
+        <div class="card-body">
+            <h4 class="card-title">Id: <a>{{item.id}}</a></h4>
+         
+            <h4 class="card-title">Nombre: <a>{{item.title}}</a></h4>
+      
+            <h5 class="card-title">Duración: <a>{{item.duration}} <small> {{item.type}}</small></a></h5>
+
+    
+            <div class="row">
+                <button (click)="details(item.id)" class="btn col-md-6 btn-block btn-primary">Elements</button>
+                <button (click)="delete(item.id)" class="btn col-md-6 btn-block btn-danger">Delete</button>
+            </div>
+
+        </div>
+
+    </div>-->
 
 </div>

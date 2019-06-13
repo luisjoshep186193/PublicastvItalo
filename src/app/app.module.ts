@@ -25,7 +25,7 @@ import { ListsComponent } from './components/admin/lists/lists.component';
 import { CreateComponent } from './components/admin/lists/create/create.component';
 import { DetailComponent } from './components/admin/lists/detail/detail.component';
 import { ElementCardComponent } from './components/shared/element-card/element-card.component';
-import { TvsComponent } from './components/shared/element-card/components/tvs/tvs.component';
+import { TvsComponent } from './components/admin/tvs/tvs.component';
 
 @NgModule({
   declarations: [

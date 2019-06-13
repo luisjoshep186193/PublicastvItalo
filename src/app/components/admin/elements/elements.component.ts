@@ -17,7 +17,7 @@ export class ElementsComponent implements OnInit {
   private itemsCollection: AngularFirestoreCollection<ElementId>;
   items: Observable<ElementId[]>;
   private CARPETA_FILES = 'file';
-  @Input() caller: string;
+  @Input() caller = 'element';
   @Input() item: ElementId;
   @Output() addItem: EventEmitter<ElementId>;
 
@@ -25,14 +25,13 @@ export class ElementsComponent implements OnInit {
     private _firestoreService: FirestoreService,
     private elementService: ElementsService ) {
       this.addItem = new EventEmitter<ElementId>();
-       this.caller = '';
 
     this.itemsCollection = afs.collection<ElementId>(this.CARPETA_FILES);
     this.items = _firestoreService.getCollection(this.CARPETA_FILES);
   }
 
   ngOnInit() {
-   // console.log('caller value: ', this.caller);
+    console.log('caller value: ', this.caller);
   }
 
   delete (item: ElementId) {
@@ -51,7 +50,7 @@ export class ElementsComponent implements OnInit {
   }
 
   callerLists() {
-    return this.caller === 'lists' ? true : false;
+    return this.caller === 'listElement' ? true : false;
   }
 
 }

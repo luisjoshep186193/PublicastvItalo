@@ -5,7 +5,7 @@
             <hr/>
         </div>
         <div class="col-md-3">
-            <button class="btn btn-block btn-success" (click)="crearLista()">
+            <button *ngIf="!callerTvElement()" class="btn btn-block btn-success" (click)="crearLista()">
             <i class="fa fa-plus"></i>
             Nuevo
           </button>
@@ -16,25 +16,25 @@
 
         <div class="card-columns">
             <!--*ngFor="let item of items | async"-->
-            <app-element-card (addItem)="insertElementToList( $event )" (itemId)="setCurrentItem( $event )" (removeItem)="removeItem( $event )" (deleteItem)="delete( $event )" (detailItem)="details()" [item]="item" *ngFor="let item of items | async"></app-element-card>
+            <app-element-card [caller]="CARPETA_FILES" (addItem)="addItemToList( $event )" (itemId)="setCurrentItem( $event )" (removeItem)="removeItem( $event )" (deleteItem)="delete( $event )" (detailItem)="details()" [item]="item" *ngFor="let item of items | async"></app-element-card>
         </div>
 
 
     </div>
 
     <!--Modal: modalCookie-->
-    <div class="modal fade bs-example-modal-lg" id="modalCookie1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+    <div *ngIf="!callerTvElement()" class="modal fade bs-example-modal-lg" id="modalCookie1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
         <div class="modal-dialog modal-lg" role="document">
             <!--Content-->
             <div class="modal-content">
                 <!--Body-->
                 <div class="modal-body">
-                    <app-elements (addItem)="insertElementToList( $event )" [caller]="CARPETA_FILES"></app-elements>
+                    <app-elements (addItem)="insertElementToList( $event )" [caller]="modalCaller"></app-elements>
                 </div>
                 <a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
             </div>
             <!--/.Content-->
         </div>
     </div>
-    <!--Modal: modalCookie-->
+
 </div>

@@ -55,6 +55,7 @@ export class CreateComponent implements OnInit {
     console.log('forma', forma);
     console.log('forma value', forma.value);
     console.log('usuario', this.element.duration);
+    this.element.url = 'assets/list.png';
     this._firestoreService.guardarFile(this.element, this.CARPETA_FILES);
     this._router.navigate(['./lists']);
    }

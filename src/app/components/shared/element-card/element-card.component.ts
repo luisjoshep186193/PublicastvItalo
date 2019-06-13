@@ -22,11 +22,11 @@ export class ElementCardComponent implements OnInit {
     this.addItem = new EventEmitter();
     this.itemId = new EventEmitter();
     this.removeItem = new EventEmitter();
-    this.caller = '';
+    // this.caller = '';
    }
 
   ngOnInit() {
-    // console.log('caller value: ', this.caller);
+     console.log('caller value: ', this.caller);
   }
   detail () {
     this.detailItem.emit(this.item);
@@ -56,6 +56,18 @@ this.removeItem.emit( this.item );
 
   callerLists() {
     return this.caller === 'lists' ? true : false;
+  }
+  callerTvs() {
+    return this.caller === 'tvs' ? true : false;
+  }
+  callerInsideTvs() {
+    return this.caller === 'tvElement' ? true : false;
+  }
+  callerElement() {
+    return this.caller === 'element' ? true : false;
+  }
+  callerListElement() {
+    return this.caller === 'listElement' ? true : false;
   }
 
 }

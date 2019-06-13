@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { Elemento, ElementId } from '../../../interfaces/element.interface';
 import { FirestoreService } from '../../../services/firestore.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component ({
   selector: 'app-lists',
@@ -27,17 +25,23 @@ export class ListsComponent implements OnInit {
 public CARPETA_FILES = 'lists';
 public currentPlayList: ElementId;
 public elementsId: ElementId [] = [];
-private elementsString = '';
-  constructor(private _activatedRoute: ActivatedRoute,
-    private _router: Router,
+
+@Input() caller = 'lists';
+@Input() modalCaller = 'listElement';
+@Output() addItem: EventEmitter<ElementId>;
+  constructor(private _router: Router,
     private _firestoreService: FirestoreService,
     private afs: AngularFirestore) {
-
+      this.addItem = new EventEmitter<ElementId>();
       this.itemsCollection = afs.collection<any>(this.CARPETA_FILES);
       this.items = _firestoreService.getCollection(this.CARPETA_FILES);
 }
 
   ngOnInit() {
+    console.log('in lists caller: ', this.caller);
+    if (this.caller !== undefined) {
+      this.CARPETA_FILES = this.caller;
+    }
   }
 
    getItem(idx: string) {
@@ -101,4 +105,15 @@ private elementsString = '';
     });
     // return JSON.parse(retrievedObject);
   }
+  callerTvs() {
+    return this.caller === 'tvs' ? true : false;
+  }
+  callerTvElement() {
+    return this.caller === 'tvElement' ? true : false;
+  }
+
+  addItemToList (item: ElementId) {
+    // console.log('in addItemToList, lists.component ', item);
+        this.addItem.emit(item);
+    }
 }

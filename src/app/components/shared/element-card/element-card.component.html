@@ -16,16 +16,16 @@
             <h4>Elements:</h4>
             <div *ngFor="let element of item.elements">
 
-                <h5>{{element.name}}<small> - {{element.duration}} seg</small><button (click)="remove(element)">X</button></h5>
+                <h5>{{element.name}}{{element.title}}<small> - {{element.duration}} seg</small><button *ngIf="!callerInsideTvs()" (click)="remove(element)">X</button></h5>
             </div>
         </div>
         <!-- Button -->
 
         <div class="row">
-            <button *ngIf="!item.name && callerLists()" (click)="detail()" class="btn col-md-6 btn-block btn-primary">Editar</button>
-            <button (click)="delete()" *ngIf="!callerLists()" class="btn col-md-6 btn-block btn-danger">Eliminar</button>
-            <button (click)="add()" *ngIf="callerLists()" class="btn col-md-6 btn-block btn-danger">Add</button>
-            <button (click)="sendItemId()" *ngIf="!item.name && !callerLists()" type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
+            <button *ngIf="" (click)="detail()" class="btn col-md-6 btn-block btn-primary">Editar</button>
+            <button (click)="delete()" *ngIf="callerElement() || callerLists() || callerTvs()" class="btn col-md-6 btn-block btn-danger">Eliminar</button>
+            <button (click)="add()" *ngIf="callerListElement() || callerInsideTvs()" class="btn col-md-6 btn-block btn-success">Add</button>
+            <button (click)="sendItemId()" *ngIf="callerTvs() || callerLists()" type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
         </div>
     </div>
     <!--<div class="card" >

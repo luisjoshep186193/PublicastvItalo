@@ -1,6 +1,11 @@
-a{
+a {
     color: white;
 }
-button{
-color: white;
+
+button {
+    color: white;
+}
+
+.navbar {
+    background-color: rgb(35, 35, 75);
 }

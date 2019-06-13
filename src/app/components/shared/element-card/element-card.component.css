@@ -1,0 +1,21 @@
+.imagen {
+    width: 60px;
+    height: 60px;
+}
+
+.elements {
+    background-color: rgb(144, 144, 170);
+    border-radius: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: white;
+}
+
+.close {
+    color: white;
+}

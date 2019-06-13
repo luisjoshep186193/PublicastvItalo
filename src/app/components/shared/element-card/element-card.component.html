@@ -1,31 +1,46 @@
-<div class="card">
+<div class="card" style="background-color: rgb(35, 35, 75)">
 
     <!-- Card image -->
-    <img *ngIf="item.url" class="img-fluid img-responsive" [src]="item.url" alt="Card image cap">
+
 
     <!-- Card content -->
-    <div class="card-body">
+    <div class=" card-body ">
+        <div class="row ">
+            <div [ngClass]="{ 'col-md-3 col-lg-3': !callerElement(), 'col-md-10' : callerElement()} ">
+                <img *ngIf="item.url " [ngClass]="{ 'img-fluid img-responsive bg-light': !callerElement(), 'img-thumbnail':callerElement()} " [src]="item.url " alt="Card image cap ">
+            </div>
+            <div [ngClass]="{ 'col-md-9 col-lg-9': !callerElement(), 'col-md-2' : callerElement()} ">
+                <button (click)="delete() " *ngIf="callerElement() || callerLists() || callerTvs() " class="close ">X</button>
+            </div>
+            <div [ngClass]="{ 'col-md-12 col-lg-12': !callerElement(), 'col-md-12' : callerElement()} ">
 
-        <!-- Title -->
-        <h4 *ngIf="item.id" class="card-title"><a>Id: {{item.id}}</a></h4>
-        <h5 *ngIf="item.duration" class="card-title"><a>Duración: {{item.duration}}</a></h5>
-        <h6 *ngIf="item.name" class="card-title"><a>Nombre: {{item.name}}</a></h6>
-        <h6 *ngIf="item.title" class="card-title">Nombre: <a>{{item.title}}</a></h6>
+                <h4 *ngIf="item.name " class="text-right bg "><small>Name: </small>{{item.name}}</h4>
+                <h4 *ngIf="item.title " class="text-right "><small>Name: </small>{{item.title}}</h4>
+            </div>
+
+        </div>
+
+        <h5 *ngIf="item.duration " class="card-text text-right "><a><small>Duración</small>: {{item.duration}} seg.</a></h5>
+        <a *ngIf="callerElement()" [href]="item.url" class="btn col-md-6 btn-block btn-primary">Editar</a>
+
         <!-- Text -->
-        <div *ngIf="item.elements && item.elements.length > 0" style="background-color: aqua">
+        <div *ngIf="item.elements && item.elements.length> 0" class="container elements">
+            <br>
             <h4>Elements:</h4>
             <div *ngFor="let element of item.elements">
 
                 <h5>{{element.name}}{{element.title}}<small> - {{element.duration}} seg</small><button *ngIf="!callerInsideTvs()" (click)="remove(element)">X</button></h5>
             </div>
+            <br>
         </div>
         <!-- Button -->
-
+        <br>
         <div class="row">
-            <button *ngIf="" (click)="detail()" class="btn col-md-6 btn-block btn-primary">Editar</button>
-            <button (click)="delete()" *ngIf="callerElement() || callerLists() || callerTvs()" class="btn col-md-6 btn-block btn-danger">Eliminar</button>
+
+
+
             <button (click)="add()" *ngIf="callerListElement() || callerInsideTvs()" class="btn col-md-6 btn-block btn-success">Add</button>
-            <button (click)="sendItemId()" *ngIf="callerTvs() || callerLists()" type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
+            <button (click)="sendItemId()" *ngIf="callerTvs() || callerLists()" type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#modalCookie1">Elements</button>
         </div>
     </div>
     <!--<div class="card" >

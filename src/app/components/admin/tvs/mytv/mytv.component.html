@@ -1,0 +1,56 @@
+<div class="main">
+    <div class="row">
+        <!--(addItem)="insertElementToList( $event )" (itemId)="setCurrentItem( $event )" (removeItem)="removeItem( $event )" (deleteItem)="delete( $event )" (detailItem)="details()" [item]="item"-->
+        <!--div *ngFor="let tv of items | async">
+            <h5>{{tv.title}}</h5>
+            <img [src]="tv.url">
+            <div *ngFor="let playlist of tv.elements">
+                <h1>{{playlist.title}}</h1>
+                <div *ngFor="let element of playlist.elements">
+                    <h1>{{element.title}}</h1>
+
+                </div>
+            </div>
+            <button type="button" (click)="initPlaylist()" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
+        </div-->
+        <div class="col-md-12 row"><button type="button" (click)="stopPlaylist()" routerLink="/tvs" class="btn btn-outline-success waves-effect">Edit</button></div>
+        <button type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
+        <div class="col-md-12 row" *ngFor="let tv of _firestoreService.items | async">
+            <div *ngIf="tv.elements && tv.elements.length > 0; else loggedOut">
+                <!--div *ngFor="let playlist of tv.elements"-->
+                <p>{{tv.elements[0].title}}</p>
+                <div *ngIf="tv.elements[0].elements">
+                    <img class="img-thumbnail" [src]='activeURL'>
+                </div>
+                <!--/div-->
+            </div>
+
+            <ng-template #loggedOut>
+                <p [appReload]='activePlaylist'>MOUSEOVER</p>
+                <img class="img-thumbnail" src='assets/publicast.png'>
+            </ng-template>
+        </div>
+
+
+
+    </div>
+    <div id="modalCookie1" class="modal">
+        <a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
+        <div *ngFor="let tv of _firestoreService.items | async">
+            <div *ngIf="tv.elements[1]; else eraseSecond">
+                <p>{{tv.elements[1].title}}</p>
+                <div *ngIf="tv.elements[1].elements">
+                    <img class="img-thumbnail" [src]='activeURL2'>
+                </div>
+            </div>
+            <ng-template #eraseSecond>
+                <p>MOUSEOVER</p>
+                <img class="img-thumbnail" src='assets/publicast.png'>
+            </ng-template>
+        </div>
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+
+    </div>
+</div>

@@ -14,6 +14,7 @@ import { HomeComponent } from './components/shared/home/home.component';
 
 import { ElementComponent } from './components/admin/elements/element/element.component';
 import { FirestoreService } from './services/firestore.service';
+import { NavbarService } from './services/navbar.service';
 // firebase
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
@@ -26,6 +27,9 @@ import { CreateComponent } from './components/admin/lists/create/create.componen
 import { DetailComponent } from './components/admin/lists/detail/detail.component';
 import { ElementCardComponent } from './components/shared/element-card/element-card.component';
 import { TvsComponent } from './components/admin/tvs/tvs.component';
+import { MytvComponent } from './components/admin/tvs/mytv/mytv.component';
+import { ReloadDirective } from './directives/reload.directive';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { TvsComponent } from './components/admin/tvs/tvs.component';
     CreateComponent,
     DetailComponent,
     ElementCardComponent,
-    TvsComponent
+    TvsComponent,
+    MytvComponent,
+    ReloadDirective
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,8 @@ import { TvsComponent } from './components/admin/tvs/tvs.component';
     AngularFireStorageModule
   ],
   providers: [
-    FirestoreService
+    FirestoreService,
+    NavbarService
   ],
   bootstrap: [AppComponent]
 })

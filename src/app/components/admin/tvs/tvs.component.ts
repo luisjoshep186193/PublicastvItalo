@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Elemento, ElementId } from '../../../interfaces/element.interface';
 import { FirestoreService } from '../../../services/firestore.service';
@@ -14,6 +14,7 @@ export class TvsComponent implements OnInit {
 
   private itemsCollection: AngularFirestoreCollection<ElementId>;
   items: Observable<ElementId[]>;
+  @Input() item: ElementId;
 
   public CARPETA_FILES = 'tvs';
   modalCaller = 'tvElement';

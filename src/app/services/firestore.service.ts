@@ -11,11 +11,11 @@ import { ElementId } from '../interfaces/element.interface';
     providedIn: 'root'
   })
   export class FirestoreService {
-    private itemsCollection: AngularFirestoreCollection<any>;
-    items: Observable<any[]>;
+    private itemsCollection: AngularFirestoreCollection<ElementId>;
+    items: Observable<ElementId[]>;
     private url = 'https://publicastv-a67df.firebaseio.com/';
     private CARPETA_FILES = 'file';
-    private elements: any[] = [];
+    private newElements: ElementId[] = [];
     public elementsId: ElementId [] = [];
     private elementsString = '';
 
@@ -25,7 +25,9 @@ import { ElementId } from '../interfaces/element.interface';
     }
 
   public getCollection (nameCollection: string) {
-    this.itemsCollection = this.db.collection<any>(nameCollection);
+    this.itemsCollection = null;
+    this.items = null;
+    this.itemsCollection = this.db.collection<ElementId>(nameCollection);
     this.elementsString = '';
     this.items = this.itemsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -55,15 +57,19 @@ import { ElementId } from '../interfaces/element.interface';
   }
 
   getLists(collectionName: string) {
-    this.elementsId = [];
+    this.newElements = undefined;
+    this.newElements = [];
+    this.elementsId = this.elementsId.splice(0, this.elementsId.length);
     const splitted = this.getStringArray(collectionName);
+    console.log('elementIds before: ', this.elementsId);
     splitted.forEach(element => {
        const nuevoElemtoID: ElementId = JSON.parse(element);
-       if (!this.elementsId.find(e => e.id === nuevoElemtoID.id)) {
-        this.elementsId.push(nuevoElemtoID);
+       if (!this.newElements.find(e => e.id === nuevoElemtoID.id)) {
+        this.newElements.push(nuevoElemtoID);
         console.log('added: ', nuevoElemtoID.id);
        }
     });
-     return this.elementsId;
+    console.log('elementIds: ', this.elementsId);
+     return this.newElements;
   }
   }

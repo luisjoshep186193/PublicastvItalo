@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="row">
+    <div class="main">
         <!--(addItem)="insertElementToList( $event )" (itemId)="setCurrentItem( $event )" (removeItem)="removeItem( $event )" (deleteItem)="delete( $event )" (detailItem)="details()" [item]="item"-->
         <!--div *ngFor="let tv of items | async">
             <h5>{{tv.title}}</h5>
@@ -13,21 +13,21 @@
             </div>
             <button type="button" (click)="initPlaylist()" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
         </div-->
-        <div class="col-md-12 row"><button type="button" (click)="stopPlaylist()" routerLink="/tvs" class="btn btn-outline-success waves-effect">Edit</button></div>
-        <button type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button>
-        <div class="col-md-12 row" *ngFor="let tv of _firestoreService.items | async">
+        <div class="text-right"><a (click)="continueFunc()">continue</a><a (click)="skeepFunc()">stop</a><a type="button" (click)="stopPlaylist()" routerLink="/tvs" class="btn btn-primary float close text-center"><small>x</small></a></div>
+        <!--button type="button" class="btn col-md-6 btn-block btn-success" data-toggle="modal" data-target="#modalCookie1">Elements</button-->
+        <div class="col-md-12 row bottomM" *ngFor="let tv of _firestoreService.items | async">
             <div *ngIf="tv.elements && tv.elements.length > 0; else loggedOut">
                 <!--div *ngFor="let playlist of tv.elements"-->
-                <p>{{tv.elements[0].title}}</p>
+                <!--p>{{tv.elements[0].title}}</p-->
                 <div *ngIf="tv.elements[0].elements">
-                    <img class="img-thumbnail" [src]='activeURL'>
+                    <img class="img-thumbnail animated fadeInLeft" [src]='activeURL'>
                 </div>
                 <!--/div-->
             </div>
 
             <ng-template #loggedOut>
-                <p [appReload]='activePlaylist'>MOUSEOVER</p>
-                <img class="img-thumbnail" src='assets/publicast.png'>
+                <p [appReload]='activePlaylist'></p>
+                <img class="img-thumbnail" src='assets/itnovacast.png'>
             </ng-template>
         </div>
 

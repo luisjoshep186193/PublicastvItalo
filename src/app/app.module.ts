@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -15,6 +15,7 @@ import { HomeComponent } from './components/shared/home/home.component';
 import { ElementComponent } from './components/admin/elements/element/element.component';
 import { FirestoreService } from './services/firestore.service';
 import { NavbarService } from './services/navbar.service';
+import { InitplaylistService } from './services/initplaylist.service';
 // firebase
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
@@ -29,6 +30,9 @@ import { ElementCardComponent } from './components/shared/element-card/element-c
 import { TvsComponent } from './components/admin/tvs/tvs.component';
 import { MytvComponent } from './components/admin/tvs/mytv/mytv.component';
 import { ReloadDirective } from './directives/reload.directive';
+import { MaintvComponent } from './components/admin/tvs/maintv/maintv.component';
+import { LoginComponent } from './components/shared/login/login.component';
+import { RegistroComponent } from './components/shared/registro/registro.component';
 
 
 @NgModule({
@@ -47,7 +51,10 @@ import { ReloadDirective } from './directives/reload.directive';
     ElementCardComponent,
     TvsComponent,
     MytvComponent,
-    ReloadDirective
+    ReloadDirective,
+    MaintvComponent,
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +68,8 @@ import { ReloadDirective } from './directives/reload.directive';
   ],
   providers: [
     FirestoreService,
-    NavbarService
+    NavbarService,
+    InitplaylistService
   ],
   bootstrap: [AppComponent]
 })

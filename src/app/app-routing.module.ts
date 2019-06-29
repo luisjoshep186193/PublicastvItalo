@@ -9,13 +9,20 @@ import { CreateComponent } from './components/admin/lists/create/create.componen
 import { DetailComponent } from './components/admin/lists/detail/detail.component';
 import { TvsComponent } from './components/admin/tvs/tvs.component';
 import { MytvComponent } from './components/admin/tvs/mytv/mytv.component';
+import { MaintvComponent } from './components/admin/tvs/maintv/maintv.component';
+import { LoginComponent } from './components/shared/login/login.component';
+import { RegistroComponent } from './components/shared/registro/registro.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-{path: 'elements', component: ElementsComponent},
+{path: 'elements', component: ElementsComponent, canActivate: [AuthGuard]},
 {path: 'element/:id', component: ElementComponent},
 {path: 'groups', component: GroupsComponent},
 {path: 'tvs', component: TvsComponent},
 {path: 'mytv', component: MytvComponent},
+{path: 'login', component: LoginComponent},
+{path: 'register', component: RegistroComponent},
+{path: 'maintv', component: MaintvComponent},
 {path: 'lists', component: ListsComponent},
 {path: 'lists/create', component: CreateComponent},
 {path: 'lists/detail/:idx', component: DetailComponent},

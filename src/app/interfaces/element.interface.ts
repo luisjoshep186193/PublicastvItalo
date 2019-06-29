@@ -7,6 +7,9 @@ export interface Elemento {
     description?: string;
     type?: string;
     url?: string;
+    email?: string;
+    psw?: string;
+    tokn?: string;
     elements?: ElementId[];
 }
 

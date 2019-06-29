@@ -25,6 +25,7 @@ import { ElementId } from '../interfaces/element.interface';
     }
 
   public getCollection (nameCollection: string) {
+    this.elementsId = this.elementsId.splice(0, this.elementsId.length);
     this.itemsCollection = null;
     this.items = null;
     this.itemsCollection = this.db.collection<ElementId>(nameCollection);
@@ -61,7 +62,6 @@ import { ElementId } from '../interfaces/element.interface';
     this.newElements = [];
     this.elementsId = this.elementsId.splice(0, this.elementsId.length);
     const splitted = this.getStringArray(collectionName);
-    console.log('elementIds before: ', this.elementsId);
     splitted.forEach(element => {
        const nuevoElemtoID: ElementId = JSON.parse(element);
        if (!this.newElements.find(e => e.id === nuevoElemtoID.id)) {

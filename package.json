@@ -25,6 +25,7 @@
     "firebase": "^6.1.0",
     "mdbootstrap": "^4.8.2",
     "rxjs": "~6.2.0",
+    "sweetalert2": "^8.13.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

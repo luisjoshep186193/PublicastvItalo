@@ -9,3 +9,13 @@ button {
 .navbar {
     background-color: rgb(35, 35, 75);
 }
+
+.visible {
+    display: block;
+    visibility: visible;
+}
+
+.invisible {
+    display: none;
+    visibility: hidden;
+}

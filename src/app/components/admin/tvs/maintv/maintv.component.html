@@ -1,0 +1,30 @@
+<p>
+    maintv works!
+</p>
+<div class="col-md-12 row" *ngFor="let tv of _firestoreService.items | async; index as i">
+    <div *ngIf="tv.elements && tv.elements.length > 0; else loggedOut">
+        <div *ngFor="let playlist of tv.elements; index as j">
+            <h1>{{j}}</h1>
+            <p>{{tv.elements[j].title}}</p>
+            <div *ngIf="tv.elements[0].elements">
+                <img class="img-thumbnail" [src]='tv.elements[0].elements[j ].url'>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #loggedOut>
+        <p [appReload]='activePlaylist'>MOUSEOVER</p>
+        <img class="img-thumbnail" src='assets/publicast.png'>
+    </ng-template>
+</div>
+<div class="col-md-12 row" *ngIf="_firestoreService.items[0] | async">
+    <p>_firestoreService.items[0].elements[0].title</p>
+    <div *ngIf="_firestoreService.items[0].elements && _firestoreService.items[0].elements.length > 0; else loggedOut">
+        <app-mytv [item]="_firestoreService.items[0].elements[0]"></app-mytv>
+    </div>
+
+    <ng-template #loggedOut>
+        <p [appReload]='activePlaylist'>MOUSEOVER</p>
+        <img class="img-thumbnail" src='assets/publicast.png'>
+    </ng-template>
+</div>

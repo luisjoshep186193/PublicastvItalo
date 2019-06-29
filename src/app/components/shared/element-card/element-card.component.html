@@ -6,10 +6,10 @@
     <!-- Card content -->
     <div class=" card-body ">
         <div class="row ">
-            <div [ngClass]="{ 'col-md-3 col-lg-3': !callerElement(), 'col-md-10' : callerElement()} ">
-                <img *ngIf="item.url " [ngClass]="{ 'img-fluid img-responsive bg-light': !callerElement(), 'img-thumbnail':callerElement()} " [src]="item.url " alt="Card image cap ">
+            <div [ngClass]="{ 'col-sm-3 col-lg-3': !callerElement(), 'col-sm-10 col-lg-10' : callerElement()} ">
+                <img *ngIf="item.url " [ngClass]="{ 'imagen': !callerElement(), 'img-thumbnail':callerElement()} " [src]="item.url " alt="Card image cap ">
             </div>
-            <div [ngClass]="{ 'col-md-9 col-lg-9': !callerElement(), 'col-md-2' : callerElement()} ">
+            <div [ngClass]="{ 'col-sm-9 col-lg-9': !callerElement(), 'col-sm-2 col-lg-2' : callerElement()} ">
                 <button (click)="delete() " *ngIf="callerElement() || callerLists() || callerTvs() " class="close ">X</button>
             </div>
             <div [ngClass]="{ 'col-md-12 col-lg-12': !callerElement(), 'col-md-12' : callerElement()} ">

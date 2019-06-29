@@ -17,5 +17,11 @@ h5 {
 }
 
 .close {
-    color: white;
+    color: rgba(250, 250, 250, 0.966);
+}
+
+.imagen {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
 }
